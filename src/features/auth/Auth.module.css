@@ -1,0 +1,79 @@
+.authCard {
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: black 0px 0px 6px -3px;
+  padding: 16px;
+  max-width: 90%;
+  width: 480px;
+  box-sizing: border-box;
+}
+
+.authCard h1 {
+    font-size: 32px;
+}
+
+.authCard > form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.textfield {
+    margin-bottom: 2px;
+    width: 100%;
+}
+
+.textfield > label {
+    font-size: 16px;
+}
+
+.textfield > input {
+    display: block;
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.textfield > input:focus {
+    outline: solid 1px var(--darker-green);
+}
+
+.textfield > span {
+    min-height: 24px;
+    display: block;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: var(--danger);
+    width: 100%;
+}
+
+.authCard a {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 24px;
+    color: var(--purple);
+}
+
+.authCard button {
+    border-radius: 6px;
+    background-color: var(--primary-green);
+    color: white;
+    padding: 16px 12px;
+    font-size: 16px;
+    border: none;
+}
+
+.authCard button:hover {
+    background-color: var(--darker-green);
+    cursor: pointer;
+}
+
+.authCard button:focus {
+    outline: solid 1px var(--darker-green)
+}
+
+.authCard button:disabled {
+    background-color: var(--lighter-green);
+    cursor: default;
+}
