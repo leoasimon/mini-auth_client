@@ -4,8 +4,14 @@ import { InferType, object, string } from "yup"
 
 import styles from "./Auth.module.css"
 import { Field, Form, Formik } from "formik"
+import { useAppDispatch, useAppSelector } from "../../app/hooks"
+import { selectStatus, selectUser, signin } from "./authSlice"
 
 export function SignIn() {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
+  const status = useAppSelector(selectStatus);
+
   const signinSchema = object({
     email: string().required("This field is required"),
     password: string().required("This field is required"),
@@ -20,6 +26,7 @@ export function SignIn() {
 
   const handleSubmit = (value: SigninData) => {
     console.log(`Signin in with ${value.email} and ${value.password}`)
+    dispatch(signin(value));
   }
 
   return (
@@ -30,7 +37,7 @@ export function SignIn() {
         onSubmit={handleSubmit}
         validationSchema={signinSchema}
       >
-        {({ isSubmitting, errors, touched, isValid }) => (
+        {({ errors, touched, isValid }) => (
           <Form>
             <div className={styles.textfield}>
               <label htmlFor="email">Email</label>
@@ -50,7 +57,7 @@ export function SignIn() {
               </span>
             </div>
             <Link to="/forgot-password">Forgot password?</Link>
-            <button type="submit" disabled={!isValid || isSubmitting || !touched.email}>
+            <button type="submit" disabled={!isValid || status === 'pending' || !touched.email}>
               Sign in
             </button>
           </Form>
