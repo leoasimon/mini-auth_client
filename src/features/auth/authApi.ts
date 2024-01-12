@@ -4,7 +4,7 @@ type User = {
 }
 
 export function signin(email: string, password: string) {
-  return new Promise<{ data: User }>((resolve) => {
+  return new Promise<{ data: User }>((resolve, reject) => {
     setTimeout(() => {
       resolve({
         data: {
@@ -12,6 +12,7 @@ export function signin(email: string, password: string) {
           email,
         },
       })
+      // reject("An Error occured")
     }, 500)
   })
 }

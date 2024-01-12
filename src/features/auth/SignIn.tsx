@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { InferType, object, string } from "yup"
 
 import styles from "./Auth.module.css"
@@ -9,8 +9,9 @@ import { selectStatus, selectUser, signin } from "./authSlice"
 
 export function SignIn() {
   const dispatch = useAppDispatch();
-  const user = useAppSelector(selectUser);
   const status = useAppSelector(selectStatus);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const signinSchema = object({
     email: string().required("This field is required"),
@@ -24,9 +25,14 @@ export function SignIn() {
     password: "This field is required",
   })
 
-  const handleSubmit = (value: SigninData) => {
+  const handleSubmit = async (value: SigninData) => {
     console.log(`Signin in with ${value.email} and ${value.password}`)
-    dispatch(signin(value));
+    const v = await dispatch(signin(value));
+    if (v.type === 'auth/signin/fulfilled') {
+      navigate(location.state?.from?.pathname || '/')
+    } else {
+      console.log(v.error?.message);
+    }
   }
 
   return (

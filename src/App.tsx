@@ -1,8 +1,8 @@
-import logo from "./logo.svg"
 import { Counter } from "./features/counter/Counter"
 import "./App.css"
 import { Link, Route, Routes } from "react-router-dom"
 import { SignIn } from "./features/auth/SignIn"
+import { RequireAuth } from "./features/auth/RequireAuth"
 
 function App() {
   return (
@@ -10,11 +10,25 @@ function App() {
       <header className="App-header">
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
         <div className="Navbar">
-          <Link className="Nav-link" to="/">Home</Link>
-          <Link className="Nav-link" to="/signin">Sign in</Link>
+          <Link className="Nav-link" to="/">
+            Home
+          </Link>
+          <Link className="Nav-link" to="/signin">
+            Sign in
+          </Link>
+          <Link className="Nav-link" to="/counter">
+            Counter
+          </Link>
         </div>
         <Routes>
-          <Route path="/" element={<Counter />} />
+          <Route
+            path="/counter"
+            element={
+              <RequireAuth>
+                <Counter />
+              </RequireAuth>
+            }
+          />
           <Route path="/signin" element={<SignIn />} />
         </Routes>
         <p>
