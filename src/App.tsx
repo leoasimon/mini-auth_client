@@ -5,6 +5,7 @@ import "./App.css"
 import { SignIn } from "./features/auth/SignIn"
 import { RequireAuth } from "./features/auth/RequireAuth"
 import { SignUp } from "./features/auth/Signup"
+import { NavBar } from "./components/NavBar/NavBar"
 
 function App() {
   return (
@@ -13,14 +14,7 @@ function App() {
         <div className="app-title">
           <Link to="/">Mini auth</Link>
         </div>
-        <div className="navbar">
-          <Link to="/signin" className="signin-link">
-            Sign in
-          </Link>
-          <Link to="/signup" className="signup-link">
-            Sign up
-          </Link>
-        </div>
+        <NavBar />
       </header>
       <main>
         <Routes>
