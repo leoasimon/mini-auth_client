@@ -1,28 +1,31 @@
+import { Link, Route, Routes } from "react-router-dom"
+
 import { Counter } from "./features/counter/Counter"
 import "./App.css"
-import { Link, Route, Routes } from "react-router-dom"
 import { SignIn } from "./features/auth/SignIn"
 import { RequireAuth } from "./features/auth/RequireAuth"
+import { SignUp } from "./features/auth/Signup"
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        <div className="Navbar">
-          <Link className="Nav-link" to="/">
-            Home
-          </Link>
-          <Link className="Nav-link" to="/signin">
+    <div>
+      <header>
+        <div className="app-title">
+          <Link to="/">Mini auth</Link>
+        </div>
+        <div className="navbar">
+          <Link to="/signin" className="signin-link">
             Sign in
           </Link>
-          <Link className="Nav-link" to="/counter">
-            Counter
+          <Link to="/signup" className="signup-link">
+            Sign up
           </Link>
         </div>
+      </header>
+      <main>
         <Routes>
           <Route
-            path="/counter"
+            path="/"
             element={
               <RequireAuth>
                 <Counter />
@@ -30,49 +33,9 @@ function App() {
             }
           />
           <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+      </main>
     </div>
   )
 }
