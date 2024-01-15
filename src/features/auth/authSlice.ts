@@ -11,7 +11,15 @@ export const authenticate = createAsyncThunk("auth/authenticate", async () => {
 export const signin = createAsyncThunk(
   "auth/signin",
   async (user: { email: string; password: string }) => {
-    const data = await authApi.signin(user.email, user.password)
+    const data = await authApi.signin(user.email.toLowerCase(), user.password)
+    return data
+  },
+)
+
+export const signup = createAsyncThunk(
+  "auth/signup",
+  async (user: { email: string; password: string }) => {
+    const data = await authApi.signup(user.email.toLowerCase(), user.password)
     return data
   },
 )
@@ -24,11 +32,13 @@ type User = {
 type AuthState = {
   user: User | null
   status: "idle" | "pending" | "failed"
+  message: ""
 }
 
 const initialState: AuthState = {
   user: null,
   status: "idle",
+  message: "",
 }
 
 export const authSlice = createSlice({
@@ -42,11 +52,25 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(signup.pending, (state) => {
+        state.status = "pending"
+        state.message = ""
+      })
+      .addCase(signup.rejected, (state, action) => {
+        state.status = "failed",
+        state.message = action.error.message || ""
+      })
+      .addCase(signup.fulfilled, (state, action) => {
+        state.status = 'idle'
+        state.user = action.payload
+      })
       .addCase(signin.pending, (state) => {
         state.status = "pending"
+        state.message = ""
       })
-      .addCase(signin.rejected, (state) => {
+      .addCase(signin.rejected, (state, action) => {
         state.status = "failed"
+        state.message = action.error.message || ""
       })
       .addCase(signin.fulfilled, (state, action) => {
         state.status = "idle"
@@ -68,7 +92,8 @@ export const authSlice = createSlice({
 
 export const selectUser = (state: RootState) => state.auth.user
 export const selectStatus = (state: RootState) => state.auth.status
+export const selectMessage = (state: RootState) => state.auth.message
 
-export const { signout } = authSlice.actions;
+export const { signout } = authSlice.actions
 
 export default authSlice.reducer

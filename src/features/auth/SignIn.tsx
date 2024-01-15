@@ -4,12 +4,13 @@ import { InferType, object, string } from "yup"
 import styles from "./Auth.module.css"
 import { Field, Form, Formik } from "formik"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
-import { selectStatus, selectUser, signin } from "./authSlice"
+import { selectMessage, selectStatus, selectUser, signin } from "./authSlice"
 import { useEffect } from "react"
 
 export function SignIn() {
   const dispatch = useAppDispatch()
   const status = useAppSelector(selectStatus)
+  const message = useAppSelector(selectMessage);
   const navigate = useNavigate()
   const location = useLocation()
   const user = useAppSelector(selectUser);
@@ -39,6 +40,11 @@ export function SignIn() {
   return (
     <div className={styles.authCard}>
       <h1>Sign in</h1>
+      <div className={styles.alertError} style={{
+        visibility: status === 'failed' ? 'visible': 'hidden'
+      }}>
+        {message}
+      </div>
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={handleSubmit}

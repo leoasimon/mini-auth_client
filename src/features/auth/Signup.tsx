@@ -4,11 +4,14 @@ import { InferType, object, ref, string } from "yup"
 import styles from "./Auth.module.css"
 import { Field, Form, Formik } from "formik"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
-import { selectStatus, signin } from "./authSlice"
+import { selectMessage, selectStatus, selectUser, signup } from "./authSlice"
+import { useEffect } from "react"
 
 export function SignUp() {
   const dispatch = useAppDispatch()
   const status = useAppSelector(selectStatus)
+  const message = useAppSelector(selectMessage)
+  const user = useAppSelector(selectUser)
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -26,24 +29,32 @@ export function SignUp() {
       .matches(/[A-Z]/, getCharacterValidationError("uppercase")),
     confirmPassword: string()
       .required("Please re-type your password")
-      .oneOf([ref("password")], "Passwords do not motch"),
+      .oneOf([ref("password")], "Passwords do not match"),
   })
 
   type SignupData = InferType<typeof signupSchema>
 
-  const handleSubmit = async (value: SignupData) => {
-    console.log(`Signin in with ${value.email} and ${value.password}`)
-    const v = await dispatch(signin(value))
-    if (v.type === "auth/signin/fulfilled") {
+  useEffect(() => {
+    if (!!user) {
       navigate(location.state?.from?.pathname || "/")
-    } else {
-      console.log(v)
     }
+  }, [user])
+
+  const handleSubmit = (value: SignupData) => {
+    dispatch(signup(value))
   }
 
   return (
     <div className={styles.authCard}>
       <h1>Sign up</h1>
+      <div
+        className={styles.alertError}
+        style={{
+          visibility: status === "failed" ? "visible" : "hidden",
+        }}
+      >
+        {message}
+      </div>
       <Formik
         initialValues={{ email: "", password: "", confirmPassword: "" }}
         onSubmit={handleSubmit}
@@ -70,9 +81,15 @@ export function SignUp() {
             </div>
             <div className={styles.textfield}>
               <label htmlFor="password">Confirm password</label>
-              <Field type="password" name="confirmPassword" placeholder="Confirm password" />
+              <Field
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirm password"
+              />
               <span>
-                {errors.confirmPassword && touched.confirmPassword ? errors.confirmPassword : ""}
+                {errors.confirmPassword && touched.confirmPassword
+                  ? errors.confirmPassword
+                  : ""}
               </span>
             </div>
             <Link to="/signin">Already have an account? sign in</Link>

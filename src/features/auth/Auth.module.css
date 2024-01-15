@@ -77,3 +77,10 @@
     background-color: var(--lighter-green);
     cursor: default;
 }
+
+.alertError {
+    background-color: var(--danger);
+    color: white;
+    padding: 12px;
+    margin-bottom: 6px;
+}
