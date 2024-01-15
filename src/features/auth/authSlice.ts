@@ -3,11 +3,16 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import * as authApi from "./authApi"
 import { RootState } from "../../app/store"
 
+export const authenticate = createAsyncThunk("auth/authenticate", async () => {
+  const data = await authApi.authenticate()
+  return data
+})
+
 export const signin = createAsyncThunk(
   "auth/signin",
   async (user: { email: string; password: string }) => {
-    const response = await authApi.signin(user.email, user.password)
-    return response.data
+    const data = await authApi.signin(user.email, user.password)
+    return data
   },
 )
 
@@ -29,7 +34,12 @@ const initialState: AuthState = {
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    signout: (state) => {
+      state.user = null
+      localStorage.removeItem("auth_token")
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(signin.pending, (state) => {
@@ -40,12 +50,25 @@ export const authSlice = createSlice({
       })
       .addCase(signin.fulfilled, (state, action) => {
         state.status = "idle"
-        state.user = action.payload
+        state.user = action.payload.user
+        localStorage.setItem("auth_token", action.payload.token)
+      })
+      .addCase(authenticate.pending, (state) => {
+        state.status = "pending"
+      })
+      .addCase(authenticate.rejected, (state) => {
+        state.status = "idle"
+      })
+      .addCase(authenticate.fulfilled, (state, action) => {
+        state.status = "idle"
+        state.user = action.payload.user
       })
   },
 })
 
 export const selectUser = (state: RootState) => state.auth.user
 export const selectStatus = (state: RootState) => state.auth.status
+
+export const { signout } = authSlice.actions;
 
 export default authSlice.reducer

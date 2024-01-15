@@ -1,18 +1,29 @@
+import axios from "axios"
+
 type User = {
   id: string
   email: string
 }
 
-export function signin(email: string, password: string) {
-  return new Promise<{ data: User }>((resolve, reject) => {
-    setTimeout(() => {
-      resolve({
-        data: {
-          id: "1",
-          email,
-        },
-      })
-      // reject("An Error occured")
-    }, 500)
+export async function signin(email: string, password: string) {
+  try {
+    const response = await axios.post("http://localhost:3000/signin", {
+      email,
+      password,
+    })
+    return response.data
+  } catch (e) {
+    console.log({ response: e.response })
+  }
+}
+
+export async function authenticate() {
+  const headers = {
+    auth_token: localStorage.getItem("auth_token"),
+  }
+  const response = await axios.get("http://localhost:3000/authenticate", {
+    headers,
   })
+
+  return response.data
 }

@@ -4,13 +4,15 @@ import { InferType, object, string } from "yup"
 import styles from "./Auth.module.css"
 import { Field, Form, Formik } from "formik"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
-import { selectStatus, signin } from "./authSlice"
+import { selectStatus, selectUser, signin } from "./authSlice"
+import { useEffect } from "react"
 
 export function SignIn() {
   const dispatch = useAppDispatch()
   const status = useAppSelector(selectStatus)
   const navigate = useNavigate()
   const location = useLocation()
+  const user = useAppSelector(selectUser);
 
   const signinSchema = object({
     email: string().required("This field is required"),
@@ -19,8 +21,13 @@ export function SignIn() {
 
   type SigninData = InferType<typeof signinSchema>
 
+  useEffect(() => {
+    if (!!user) {
+      navigate(location.state?.from?.pathname || "/")
+    }
+  }, [user])
+
   const handleSubmit = async (value: SigninData) => {
-    console.log(`Signin in with ${value.email} and ${value.password}`)
     const v = await dispatch(signin(value))
     if (v.type === "auth/signin/fulfilled") {
       navigate(location.state?.from?.pathname || "/")

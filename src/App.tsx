@@ -6,8 +6,18 @@ import { SignIn } from "./features/auth/SignIn"
 import { RequireAuth } from "./features/auth/RequireAuth"
 import { SignUp } from "./features/auth/Signup"
 import { NavBar } from "./components/NavBar/NavBar"
+import { useEffect } from "react"
+import { useAppDispatch } from "./app/hooks"
+import { authenticate } from "./features/auth/authSlice"
 
 function App() {
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(authenticate());
+  })
+
   return (
     <div>
       <header>
