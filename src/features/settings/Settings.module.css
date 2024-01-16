@@ -1,0 +1,101 @@
+.settings {
+  width: 100%;
+  display: flex;
+}
+
+.settingsNav {
+  border: solid var(--lighter-green) 1px;
+  background-color: white;
+  padding: 32px 12px;
+  width: 360px;
+  font-size: 22px;
+  height: calc(100vh - 72px);
+}
+
+.settingsNav > span {
+  padding: 4px;
+  font-weight: bold;
+  font-size: 32px;
+}
+.settingsNav ul {
+  list-style: none;
+  padding: 0;
+  border: none;
+}
+
+.settingsNav li {
+  padding: 6px;
+}
+
+.settingsNav a {
+  color: black;
+  text-decoration: none;
+}
+
+.settingsNav a:hover {
+  text-decoration: underline;
+}
+
+.activeTab {
+  color: var(--darker-green);
+  font-weight: bold;
+}
+
+.activeTab a {
+  color: var(--darker-green);
+}
+
+.sectionIcon {
+  margin-right: 6px;
+}
+
+.settingsSection {
+  padding: 16px;
+  background-color: white;
+  margin: 12px;
+  width: 100%;
+}
+
+.settingsSection > h1 {
+  margin: 12px 0;
+  font-size: 24px;
+}
+
+.field {
+  margin-bottom: 12px;
+}
+
+.field span,
+label {
+  margin-right: 12px;
+}
+
+.field button {
+  color: white;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  margin: 0 2px;
+}
+
+.label label {
+  font-weight: bold;
+}
+
+.fieldIconSuccess {
+  background-color: var(--primary-green);
+}
+
+.fieldIconCancel {
+  background-color: var(--danger);
+}
+
+.deleteAccountBtn {
+  border: solid var(--danger) 1px;
+  color: var(--danger);
+  border-radius: 6px;
+  background-color: white;
+  padding: 16px 12px;
+  font-size: 16px;
+}

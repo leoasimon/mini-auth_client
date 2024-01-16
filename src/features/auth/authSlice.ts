@@ -24,6 +24,14 @@ export const signup = createAsyncThunk(
   },
 )
 
+export const editInfos = createAsyncThunk(
+  "auth/editInfos",
+  async (changes: Partial<User>) => {
+    const data = await authApi.editInfos(changes);
+    return data;
+  }
+)
+
 type User = {
   id: string
   email: string
@@ -85,6 +93,17 @@ export const authSlice = createSlice({
       })
       .addCase(authenticate.fulfilled, (state, action) => {
         state.status = "idle"
+        state.user = action.payload.user
+      })
+      .addCase(editInfos.pending, (state) => {
+        state.status = "pending"
+      })
+      .addCase(editInfos.rejected, (state, action) => {
+        state.status = "failed"
+        state.message = action.error.message || ""
+      })
+      .addCase(editInfos.fulfilled, (state, action) => {
+        state.status = "idle",
         state.user = action.payload.user
       })
   },

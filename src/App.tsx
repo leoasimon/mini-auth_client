@@ -9,6 +9,7 @@ import { NavBar } from "./components/NavBar/NavBar"
 import { useEffect } from "react"
 import { useAppDispatch } from "./app/hooks"
 import { authenticate } from "./features/auth/authSlice"
+import { AppRoutes } from "./Routes"
 
 function App() {
 
@@ -19,26 +20,16 @@ function App() {
   })
 
   return (
-    <div>
+    <div className="layout">
       <header>
         <div className="app-title">
           <Link to="/">Mini auth</Link>
         </div>
         <NavBar />
       </header>
+      <div className="layoutt" />
       <main>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <RequireAuth>
-                <Counter />
-              </RequireAuth>
-            }
-          />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
-        </Routes>
+        <AppRoutes />
       </main>
     </div>
   )

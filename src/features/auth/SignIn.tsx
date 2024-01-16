@@ -28,13 +28,8 @@ export function SignIn() {
     }
   }, [user])
 
-  const handleSubmit = async (value: SigninData) => {
-    const v = await dispatch(signin(value))
-    if (v.type === "auth/signin/fulfilled") {
-      navigate(location.state?.from?.pathname || "/")
-    } else {
-      console.log(v)
-    }
+  const handleSubmit = (value: SigninData) => {
+    dispatch(signin(value))
   }
 
   return (
