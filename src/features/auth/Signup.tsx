@@ -6,6 +6,7 @@ import { Field, Form, Formik } from "formik"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { selectMessage, selectStatus, selectUser, signup } from "./authSlice"
 import { useEffect } from "react"
+import { Button } from "../../components/Button/Button"
 
 export function SignUp() {
   const dispatch = useAppDispatch()
@@ -93,12 +94,12 @@ export function SignUp() {
               </span>
             </div>
             <Link to="/signin">Already have an account? sign in</Link>
-            <button
+            <Button
               type="submit"
               disabled={!isValid || status === "pending" || !touched.email}
             >
               Sign up
-            </button>
+            </Button>
           </Form>
         )}
       </Formik>

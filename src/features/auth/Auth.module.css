@@ -55,29 +55,6 @@
     color: var(--purple);
 }
 
-.authCard button {
-    border-radius: 6px;
-    background-color: var(--primary-green);
-    color: white;
-    padding: 16px 12px;
-    font-size: 16px;
-    border: none;
-}
-
-.authCard button:hover {
-    background-color: var(--darker-green);
-    cursor: pointer;
-}
-
-.authCard button:focus {
-    outline: solid 1px var(--darker-green)
-}
-
-.authCard button:disabled {
-    background-color: var(--lighter-green);
-    cursor: default;
-}
-
 .alertError {
     background-color: var(--danger);
     color: white;

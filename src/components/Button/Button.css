@@ -1,0 +1,44 @@
+.btn {
+    border-radius: 6px;
+    padding: 16px 12px;
+    font-size: 16px;
+}
+
+.btn-primary {
+    color: white;
+    background-color: var(--primary-green);
+    border: none;
+}
+
+.btn-primary-outlined {
+    color: var(--primary-green);
+    border: solid var(--primary-green) 1px;
+    background-color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--darker-green);
+    cursor: pointer;
+}
+
+.btn-primary:focus {
+    outline: solid 1px var(--darker-green)
+}
+
+.btn-primary:disabled {
+        background-color: var(--lighter-green);
+    cursor: default;
+}
+
+.btn-danger {
+    color: white;
+    background-color: var(--danger);
+    border: none;
+    border-color: var(--danger);
+}
+
+.btn-danger-outlined {
+    background-color: white;
+    border: solid var(--danger) 1px;
+    color: var(--danger);
+}

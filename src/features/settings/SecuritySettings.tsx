@@ -8,6 +8,7 @@ import {
   faPenToSquare,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons"
+import { Button } from "../../components/Button/Button"
 
 export function SecuritySettings() {
   const user = useAppSelector(selectUser)
@@ -45,7 +46,7 @@ export function SecuritySettings() {
       </div>
 
       <h2>Account management</h2>
-      <button className={styles.deleteAccountBtn}>Delete account</button>
+      <Button variant="danger" outlined>Delete account</Button>
     </div>
   )
 }
