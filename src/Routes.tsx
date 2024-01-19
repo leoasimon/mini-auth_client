@@ -6,6 +6,8 @@ import { SignIn } from "./features/auth/SignIn"
 import { SignUp } from "./features/auth/Signup"
 import { Settings } from "./features/settings/SettingsPage"
 import { SecuritySettings } from "./features/settings/SecuritySettings"
+import { VerifyEmail } from "./features/auth/VerifyEmail"
+import { SignupSuccess } from "./features/auth/SignupSuccess"
 
 export function AppRoutes() {
   return (
@@ -30,6 +32,8 @@ export function AppRoutes() {
       </Route>
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
+      <Route path="/verify-email" element={<VerifyEmail />} />
+      <Route path="/signup-success" element={<SignupSuccess />} />
     </Routes>
   )
 }

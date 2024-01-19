@@ -70,7 +70,6 @@ export const authSlice = createSlice({
       })
       .addCase(signup.fulfilled, (state, action) => {
         state.status = 'idle'
-        state.user = action.payload
       })
       .addCase(signin.pending, (state) => {
         state.status = "pending"
