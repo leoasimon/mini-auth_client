@@ -27,9 +27,17 @@ export const signup = createAsyncThunk(
 export const editInfos = createAsyncThunk(
   "auth/editInfos",
   async (changes: Partial<User>) => {
-    const data = await authApi.editInfos(changes);
-    return data;
-  }
+    const data = await authApi.editInfos(changes)
+    return data
+  },
+)
+
+export const deleteAccount = createAsyncThunk(
+  "auth/deleteAccount",
+  async (password: string) => {
+    const data = await authApi.deleteAccount(password)
+    return data
+  },
 )
 
 type User = {
@@ -65,11 +73,10 @@ export const authSlice = createSlice({
         state.message = ""
       })
       .addCase(signup.rejected, (state, action) => {
-        state.status = "failed",
-        state.message = action.error.message || ""
+        ;(state.status = "failed"), (state.message = action.error.message || "")
       })
       .addCase(signup.fulfilled, (state, action) => {
-        state.status = 'idle'
+        state.status = "idle"
       })
       .addCase(signin.pending, (state) => {
         state.status = "pending"
@@ -102,8 +109,18 @@ export const authSlice = createSlice({
         state.message = action.error.message || ""
       })
       .addCase(editInfos.fulfilled, (state, action) => {
-        state.status = "idle",
-        state.user = action.payload.user
+        ;(state.status = "idle"), (state.user = action.payload.user)
+      })
+      .addCase(deleteAccount.pending, (state, action) => {
+        state.status = "pending"
+      })
+      .addCase(deleteAccount.rejected, (state, action) => {
+        state.status = "idle"
+        state.message = action.error.message || ""
+      })
+      .addCase(deleteAccount.fulfilled, (state) => {
+        state.status = "pending"
+        state.user = null
       })
   },
 })

@@ -99,3 +99,31 @@ label {
   padding: 16px 12px;
   font-size: 16px;
 }
+
+.modalOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.3);
+}
+
+.modal {
+  background-color: white;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: fit-content;
+  height: fit-content;
+  padding: 12px;
+}
+
+.modalActions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: end;
+}

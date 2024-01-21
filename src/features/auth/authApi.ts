@@ -48,9 +48,22 @@ export async function editInfos(changes: Partial<User>) {
   const response = await axios.put("http://localhost:3000/users/me", {
     headers,
     body: {
-      ...changes
-    }
+      ...changes,
+    },
   })
 
-  return response.data;
+  return response.data
+}
+
+export async function deleteAccount(password: string) {
+  const headers = {
+    auth_token: localStorage.getItem("auth_token"),
+  }
+
+  const response = await axios.delete("http://localhost:3000/users/me", {
+    headers,
+    data: {
+      password
+    }
+  })
 }

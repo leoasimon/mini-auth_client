@@ -9,13 +9,25 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons"
 import { Button } from "../../components/Button/Button"
+import { DeleteAccountModal } from "./DeleteAccountModal"
 
 export function SecuritySettings() {
   const user = useAppSelector(selectUser)
   const [editEmail, setEditEmail] = useState(false)
+  const [deleteAccount, setDeleteAccout] = useState(false)
+
+  const handleDeleteAccount = () => {
+    setDeleteAccout(true)
+  }
+
+  const handleAccountDeletion = (password: string) => {
+    console.log("About to delete account:", password);
+    setDeleteAccout(false);
+  }
 
   return (
     <div className={styles.settingsSection}>
+      <DeleteAccountModal isOpen={deleteAccount} onSubmit={handleAccountDeletion}/>
       <h2>User infos</h2>
       {!editEmail ? (
         <div className={styles.field}>
@@ -46,7 +58,9 @@ export function SecuritySettings() {
       </div>
 
       <h2>Account management</h2>
-      <Button variant="danger" outlined>Delete account</Button>
+      <Button variant="danger" outlined onClick={handleDeleteAccount}>
+        Delete account
+      </Button>
     </div>
   )
 }
