@@ -11,12 +11,6 @@ type ButtonProps = {
   disabled?: boolean
 }
 
-const defaultProps: ButtonProps = {
-  variant: "primary",
-  outlined: false,
-  children: "",
-}
-
 export function Button(props: ButtonProps) {
   const { variant = "primary" } = props
 
@@ -25,10 +19,18 @@ export function Button(props: ButtonProps) {
     if (props.outlined) {
       className += ` btn-${variant}-outlined`
     } else {
-        className += ` btn-${variant}`
+      className += ` btn-${variant}`
     }
 
     return className
   }
-  return <button className={resolveClassname()} disabled={props.disabled}>{props.children}</button>
+  return (
+    <button
+      className={resolveClassname()}
+      disabled={props.disabled}
+      onClick={props.onClick}
+    >
+      {props.children}
+    </button>
+  )
 }
