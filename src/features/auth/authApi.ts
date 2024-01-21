@@ -60,10 +60,15 @@ export async function deleteAccount(password: string) {
     auth_token: localStorage.getItem("auth_token"),
   }
 
-  const response = await axios.delete("http://localhost:3000/users/me", {
-    headers,
-    data: {
-      password
-    }
-  })
+  try {
+    const response = await axios.delete("http://localhost:3000/users/me", {
+      headers,
+      data: {
+        password,
+      },
+    })
+    return response.data
+  } catch (e: any) {
+    throw new Error(e?.response?.data?.error || e.message)
+  }
 }

@@ -4,9 +4,10 @@ import { InferType, object, ref, string } from "yup"
 import styles from "./Auth.module.css"
 import { Form, Formik } from "formik"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
-import { selectMessage, selectStatus, selectUser, signup } from "./authSlice"
+import { selectMessage, selectStatus, signup } from "./authSlice"
 import { Button } from "../../components/Button/Button"
 import { TextField } from "../../components/TextField/TextField"
+import { Alert } from "../../components/Alert/Alert"
 
 export function SignUp() {
   const dispatch = useAppDispatch()
@@ -46,14 +47,9 @@ export function SignUp() {
     <div className={styles.authLayout}>
       <div className={styles.authCard}>
         <h1>Sign up</h1>
-        <div
-          className={styles.alertError}
-          style={{
-            visibility: status === "failed" ? "visible" : "hidden",
-          }}
-        >
+        <Alert type="error" visible={status === "failed"}>
           {message}
-        </div>
+        </Alert>
         <Formik
           initialValues={{ email: "", password: "", confirmPassword: "" }}
           onSubmit={handleSubmit}

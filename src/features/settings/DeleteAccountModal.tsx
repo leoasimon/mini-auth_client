@@ -4,8 +4,9 @@ import styles from "./Settings.module.css"
 import { Button } from "../../components/Button/Button"
 import { object, string } from "yup"
 import { TextField } from "../../components/TextField/TextField"
-import { useAppDispatch } from "../../app/hooks"
-import { deleteAccount } from "../auth/authSlice"
+import { useAppDispatch, useAppSelector } from "../../app/hooks"
+import { deleteAccount, selectMessage } from "../auth/authSlice"
+import { Alert } from "../../components/Alert/Alert"
 
 type DeleteAccountModalProps = {
   isOpen: boolean
@@ -17,6 +18,7 @@ const deleteAccountSchema = object({
 
 export function DeleteAccountModal(props: DeleteAccountModalProps) {
   const dispatch = useAppDispatch()
+  const errorMessage = useAppSelector(selectMessage)
 
   const handleSubmit = (value: { password: string }) => {
     console.log("trying to delete account with pwd", value.password)
@@ -31,6 +33,9 @@ export function DeleteAccountModal(props: DeleteAccountModalProps) {
       className={styles.modalOverlay}
     >
       <div className={styles.modal}>
+        <Alert type="error" visible={!!errorMessage}>
+          {errorMessage}
+        </Alert>
         <h3>Delete Account</h3>
         <p>You're about to delete your account, this action is irreversible</p>
         <Formik

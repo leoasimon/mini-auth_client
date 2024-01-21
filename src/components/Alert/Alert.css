@@ -1,0 +1,34 @@
+.alert {
+  padding: 12px;
+  margin-bottom: 6px;
+}
+
+.alert-error {
+  background-color: var(--danger);
+  color: white;
+}
+
+.alert-error.alert-outlined {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.alert-success {
+  background-color: var(--success);
+  color: white;
+}
+
+.alert-success.alert-outlined {
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.alert-outlined {
+  background-color: white;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.alert-hidden {
+  visibility: hidden;
+}

@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { selectMessage, selectStatus, selectUser, signin } from "./authSlice"
 import { Button } from "../../components/Button/Button"
 import { TextField } from "../../components/TextField/TextField"
+import { Alert } from "../../components/Alert/Alert"
 
 export function SignIn() {
   const dispatch = useAppDispatch()
@@ -38,14 +39,12 @@ export function SignIn() {
     <div className={styles.authLayout}>
       <div className={styles.authCard}>
         <h1>Sign in</h1>
-        <div
-          className={styles.alertError}
-          style={{
-            visibility: status === "failed" ? "visible" : "hidden",
-          }}
+        <Alert
+          visible={status === 'failed'}
+          type="error"
         >
           {message}
-        </div>
+        </Alert>
         <Formik
           initialValues={{ email: "", password: "" }}
           onSubmit={handleSubmit}

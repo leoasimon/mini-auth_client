@@ -1,16 +1,17 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { Link, useLocation, useSearchParams } from "react-router-dom"
+import { useNavigate, useSearchParams } from "react-router-dom"
 
-import styles from "./Auth.module.css"
+import { Alert } from "../../components/Alert/Alert"
 
 export function VerifyEmail() {
-  const location = useLocation()
   const [params] = useSearchParams()
 
   const [isVerified, setIsVerified] = useState(false)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!isVerified && error === "") {
@@ -31,21 +32,25 @@ export function VerifyEmail() {
     }
   }, [])
 
+  useEffect(() => {
+    if (isVerified) {
+      setTimeout(() => {
+        navigate("/signin")
+      }, 2000)
+    }
+  }, [isVerified]);
+
   return (
     <div>
       {loading ? (
         <span> Verifying your email adress...</span>
       ) : error ? (
-        <div className={styles.alertError}>
-          <span>{error}</span>
-        </div>
+        <Alert type="error">{error}</Alert>
       ) : (
-        <div className={styles.alertSuccess}>
-          <span>
-            Your email adress has been successfully verified, you can now{" "}
-            <Link to="/signin">sign in</Link> into your account
-          </span>
-        </div>
+        <Alert type="success">
+          Your email adress has been successfully verified, you will be
+          redirected to the login page
+        </Alert>
       )}
     </div>
   )
