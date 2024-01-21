@@ -1,12 +1,13 @@
+import { useEffect } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { InferType, object, string } from "yup"
 
 import styles from "./Auth.module.css"
-import { Field, Form, Formik } from "formik"
+import { Form, Formik } from "formik"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { selectMessage, selectStatus, selectUser, signin } from "./authSlice"
-import { useEffect } from "react"
 import { Button } from "../../components/Button/Button"
+import { TextField } from "../../components/TextField/TextField"
 
 export function SignIn() {
   const dispatch = useAppDispatch()
@@ -52,23 +53,12 @@ export function SignIn() {
         >
           {({ errors, touched, isValid }) => (
             <Form>
-              <div className={styles.textfield}>
-                <label htmlFor="email">Email</label>
-                <Field
-                  type="email"
-                  name="email"
-                  className={styles.textfield}
-                  placeholder="Email"
-                />
-                <span>{touched.email && errors.email ? errors.email : ""}</span>
-              </div>
-              <div className={styles.textfield}>
-                <label htmlFor="password">Password</label>
-                <Field type="password" name="password" placeholder="Password" />
-                <span>
-                  {errors.password && touched.password ? errors.password : ""}
-                </span>
-              </div>
+              <TextField type="email" name="email" placeholder="Email" />
+              <TextField
+                type="password"
+                name="password"
+                placeholder="Password"
+              />
               <Link to="/forgot-password">Forgot password?</Link>
               <Button
                 type="submit"

@@ -2,10 +2,11 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import { InferType, object, ref, string } from "yup"
 
 import styles from "./Auth.module.css"
-import { Field, Form, Formik } from "formik"
+import { Form, Formik } from "formik"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { selectMessage, selectStatus, selectUser, signup } from "./authSlice"
 import { Button } from "../../components/Button/Button"
+import { TextField } from "../../components/TextField/TextField"
 
 export function SignUp() {
   const dispatch = useAppDispatch()
@@ -60,36 +61,24 @@ export function SignUp() {
         >
           {({ errors, touched, isValid }) => (
             <Form>
-              <div className={styles.textfield}>
-                <label htmlFor="email">Email</label>
-                <Field
-                  type="email"
-                  name="email"
-                  className={styles.textfield}
-                  placeholder="Email"
-                />
-                <span>{touched.email && errors.email ? errors.email : ""}</span>
-              </div>
-              <div className={styles.textfield}>
-                <label htmlFor="password">Password</label>
-                <Field type="password" name="password" placeholder="Password" />
-                <span>
-                  {errors.password && touched.password ? errors.password : ""}
-                </span>
-              </div>
-              <div className={styles.textfield}>
-                <label htmlFor="password">Confirm password</label>
-                <Field
-                  type="password"
-                  name="confirmPassword"
-                  placeholder="Confirm password"
-                />
-                <span>
-                  {errors.confirmPassword && touched.confirmPassword
-                    ? errors.confirmPassword
-                    : ""}
-                </span>
-              </div>
+              <TextField
+                label="Email"
+                type="email"
+                name="email"
+                placeholder="Email"
+              />
+              <TextField
+                label="Password"
+                type="password"
+                name="password"
+                placeholder="Password"
+              />
+              <TextField
+                label="Confirm password"
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirm password"
+              />
               <Link to="/signin">Already have an account? sign in</Link>
               <Button
                 type="submit"
