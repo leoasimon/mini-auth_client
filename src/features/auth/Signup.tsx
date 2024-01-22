@@ -8,6 +8,7 @@ import { selectMessage, selectStatus, signup } from "./authSlice"
 import { Button } from "../../components/Button/Button"
 import { TextField } from "../../components/TextField/TextField"
 import { Alert } from "../../components/Alert/Alert"
+import { Card } from "../../components/Card/Card"
 
 export function SignUp() {
   const dispatch = useAppDispatch()
@@ -44,47 +45,49 @@ export function SignUp() {
 
   return (
     <div className={styles.authLayout}>
-      <div className={styles.authCard}>
-        <h1>Sign up</h1>
-        <Alert type="error" visible={status === "failed"}>
-          {message}
-        </Alert>
-        <Formik
-          initialValues={{ email: "", password: "", confirmPassword: "" }}
-          onSubmit={handleSubmit}
-          validationSchema={signupSchema}
-        >
-          {({ touched, isValid }) => (
-            <Form>
-              <TextField
-                label="Email"
-                type="email"
-                name="email"
-                placeholder="Email"
-              />
-              <TextField
-                label="Password"
-                type="password"
-                name="password"
-                placeholder="Password"
-              />
-              <TextField
-                label="Confirm password"
-                type="password"
-                name="confirmPassword"
-                placeholder="Confirm password"
-              />
-              <Link to="/signin">Already have an account? sign in</Link>
-              <Button
-                type="submit"
-                disabled={!isValid || status === "pending" || !touched.email}
-              >
-                Sign up
-              </Button>
-            </Form>
-          )}
-        </Formik>
-      </div>
+      <Card>
+        <div className={styles.authBody}>
+          <h1>Sign up</h1>
+          <Alert type="error" visible={status === "failed"}>
+            {message}
+          </Alert>
+          <Formik
+            initialValues={{ email: "", password: "", confirmPassword: "" }}
+            onSubmit={handleSubmit}
+            validationSchema={signupSchema}
+          >
+            {({ touched, isValid }) => (
+              <Form>
+                <TextField
+                  label="Email"
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                />
+                <TextField
+                  label="Password"
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                />
+                <TextField
+                  label="Confirm password"
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirm password"
+                />
+                <Link to="/signin">Already have an account? sign in</Link>
+                <Button
+                  type="submit"
+                  disabled={!isValid || status === "pending" || !touched.email}
+                >
+                  Sign up
+                </Button>
+              </Form>
+            )}
+          </Formik>
+        </div>
+      </Card>
     </div>
   )
 }

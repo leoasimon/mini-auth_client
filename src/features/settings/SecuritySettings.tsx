@@ -21,13 +21,18 @@ export function SecuritySettings() {
   }
 
   const handleAccountDeletion = (password: string) => {
-    console.log("About to delete account:", password);
-    setDeleteAccout(false);
+    console.log("About to delete account:", password)
+    setDeleteAccout(false)
   }
 
   return (
     <div className={styles.settingsSection}>
-      <DeleteAccountModal isOpen={deleteAccount} onSubmit={handleAccountDeletion}/>
+      <DeleteAccountModal
+        isOpen={deleteAccount}
+        onClose={() => {
+          setDeleteAccout(false)
+        }}
+      />
       <h2>User infos</h2>
       {!editEmail ? (
         <div className={styles.field}>

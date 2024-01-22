@@ -1,13 +1,9 @@
 .authLayout {
   padding: 24px;
+  max-width: 90vw;
 }
 
-.authCard {
-  background-color: white;
-  border-radius: 6px;
-  box-shadow: black 0px 0px 6px -3px;
-  padding: 16px;
-  max-width: 90%;
+.authBody {
   width: 480px;
 }
 
@@ -21,17 +17,18 @@
 .successCard > h3 {
   font-size: 36px;
 }
-.authCard h1 {
+
+.authBody h1 {
   font-size: 32px;
 }
 
-.authCard > form {
+.authBody > form {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-.authCard a {
+.authBody a {
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 24px;
