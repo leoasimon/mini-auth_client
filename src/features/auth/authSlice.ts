@@ -121,6 +121,7 @@ export const authSlice = createSlice({
       .addCase(deleteAccount.fulfilled, (state) => {
         state.status = "pending"
         state.user = null
+        localStorage.removeItem("auth_token")
       })
   },
 })

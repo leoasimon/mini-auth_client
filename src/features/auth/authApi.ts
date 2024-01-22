@@ -1,4 +1,4 @@
-import axios from "axios"
+import * as api from "../../api"
 
 type User = {
   id: string
@@ -7,7 +7,7 @@ type User = {
 
 export async function signin(email: string, password: string) {
   try {
-    const response = await axios.post("http://localhost:3000/signin", {
+    const response = await api.post("/signin", {
       email,
       password,
     })
@@ -19,7 +19,7 @@ export async function signin(email: string, password: string) {
 
 export async function signup(email: string, password: string) {
   try {
-    const response = await axios.post("http://localhost:3000/signup", {
+    const response = await api.post("/signup", {
       email,
       password,
     })
@@ -30,23 +30,13 @@ export async function signup(email: string, password: string) {
 }
 
 export async function authenticate() {
-  const headers = {
-    auth_token: localStorage.getItem("auth_token"),
-  }
-  const response = await axios.get("http://localhost:3000/authenticate", {
-    headers,
-  })
+  const response = await api.loggedCall().get("/authenticate")
 
   return response.data
 }
 
 export async function editInfos(changes: Partial<User>) {
-  const headers = {
-    auth_token: localStorage.getItem("auth_token"),
-  }
-
-  const response = await axios.put("http://localhost:3000/users/me", {
-    headers,
+  const response = await api.loggedCall().put("/users/me", {
     body: {
       ...changes,
     },
@@ -56,17 +46,14 @@ export async function editInfos(changes: Partial<User>) {
 }
 
 export async function deleteAccount(password: string) {
-  const headers = {
-    auth_token: localStorage.getItem("auth_token"),
-  }
-
   try {
-    const response = await axios.delete("http://localhost:3000/users/me", {
-      headers,
-      data: {
-        password,
-      },
-    })
+    const response = await api
+      .loggedCall()
+      .delete("http://localhost:3000/users/me", {
+        data: {
+          password,
+        },
+      })
     return response.data
   } catch (e: any) {
     throw new Error(e?.response?.data?.error || e.message)

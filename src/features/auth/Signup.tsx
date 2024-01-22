@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { InferType, object, ref, string } from "yup"
 
 import styles from "./Auth.module.css"
@@ -14,7 +14,6 @@ export function SignUp() {
   const status = useAppSelector(selectStatus)
   const message = useAppSelector(selectMessage)
   const navigate = useNavigate()
-  const location = useLocation()
 
   const getCharacterValidationError = (str: string) => {
     return `Your password must have at least 1 ${str} character`
@@ -55,7 +54,7 @@ export function SignUp() {
           onSubmit={handleSubmit}
           validationSchema={signupSchema}
         >
-          {({ errors, touched, isValid }) => (
+          {({ touched, isValid }) => (
             <Form>
               <TextField
                 label="Email"
