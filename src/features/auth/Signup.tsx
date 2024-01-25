@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "react-router-dom"
-import { InferType, object, ref, string } from "yup"
+import { object, ref, string } from "yup"
+import { Form, Formik } from "formik"
 
 import styles from "./Auth.module.css"
-import { Form, Formik } from "formik"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { selectMessage, selectStatus, signup } from "./authSlice"
 import { Button } from "../../components/Button/Button"
@@ -33,7 +33,11 @@ export function SignUp() {
       .oneOf([ref("password")], "Passwords do not match"),
   })
 
-  type SignupData = InferType<typeof signupSchema>
+  type SignupData = {
+    email: string,
+    password: string,
+    confirmPassword: string
+  }
 
   const handleSubmit = async (value: SignupData) => {
     const result = await dispatch(signup(value))

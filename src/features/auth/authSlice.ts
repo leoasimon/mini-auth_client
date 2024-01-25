@@ -48,7 +48,7 @@ type User = {
 type AuthState = {
   user: User | null
   status: "idle" | "pending" | "failed"
-  message: ""
+  message: string
 }
 
 const initialState: AuthState = {
@@ -111,7 +111,7 @@ export const authSlice = createSlice({
       .addCase(editInfos.fulfilled, (state, action) => {
         ;(state.status = "idle"), (state.user = action.payload.user)
       })
-      .addCase(deleteAccount.pending, (state, action) => {
+      .addCase(deleteAccount.pending, (state) => {
         state.status = "pending"
       })
       .addCase(deleteAccount.rejected, (state, action) => {

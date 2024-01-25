@@ -24,7 +24,10 @@ export function SignIn() {
     password: string().required("This field is required"),
   })
 
-  type SigninData = InferType<typeof signinSchema>
+  type SigninData = {
+    email: string
+    password: string
+  }
 
   useEffect(() => {
     if (!!user) {
