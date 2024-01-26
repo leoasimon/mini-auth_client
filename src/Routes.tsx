@@ -8,6 +8,8 @@ import { Settings } from "./features/settings/SettingsPage"
 import { SecuritySettings } from "./features/settings/SecuritySettings"
 import { VerifyEmail } from "./features/auth/VerifyEmail"
 import { SignupSuccess } from "./features/auth/SignupSuccess"
+import { ForgotPassword } from "./features/auth/ForgotPassword"
+import { ResetPassword } from "./features/auth/ResetPassword"
 
 export function AppRoutes() {
   return (
@@ -34,6 +36,8 @@ export function AppRoutes() {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/verify-email" element={<VerifyEmail />} />
       <Route path="/signup-success" element={<SignupSuccess />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
     </Routes>
   )
 }

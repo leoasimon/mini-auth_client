@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
-import { InferType, object, string } from "yup"
+import { object, string } from "yup"
 
 import styles from "./Auth.module.css"
 import { Form, Formik } from "formik"
@@ -52,7 +52,7 @@ export function SignIn() {
             onSubmit={handleSubmit}
             validationSchema={signinSchema}
           >
-            {({ errors, touched, isValid }) => (
+            {({ touched, isValid }) => (
               <Form>
                 <TextField type="email" name="email" placeholder="Email" />
                 <TextField

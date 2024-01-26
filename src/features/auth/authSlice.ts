@@ -40,6 +40,14 @@ export const deleteAccount = createAsyncThunk(
   },
 )
 
+export const forgotPwd = createAsyncThunk(
+  "auth/resetPwd",
+  async (email: string) => {
+    const data = await authApi.forgotPwd(email)
+    return data
+  },
+)
+
 type User = {
   id: string
   email: string
@@ -123,6 +131,17 @@ export const authSlice = createSlice({
         state.user = null
         localStorage.removeItem("auth_token")
       })
+      .addCase(forgotPwd.pending, (state) => {
+        state.status = "pending"
+      })
+      .addCase(forgotPwd.rejected, (state, action) => {
+        state.status = "failed"
+        state.message = action.error.message || ""
+      })
+      .addCase(forgotPwd.fulfilled, (state) => {
+        state.status = "idle"
+      })
+
   },
 })
 

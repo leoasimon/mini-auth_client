@@ -29,6 +29,29 @@ export async function signup(email: string, password: string) {
   }
 }
 
+export async function forgotPwd(email: string) {
+  try {
+    const response = await api.post("/forgot-password", {
+      email,
+    })
+    return response.data
+  } catch (e: any) {
+    throw new Error(e?.response?.data?.error || e.message)
+  }
+}
+
+export async function resetPwd(token: string, password: string) {
+  try {
+    const response = await api.post("/reset-password?token=" + token, {
+      password,
+    })
+    return response.data
+  } catch (e: any) {
+    console.error(e)
+    throw new Error(e?.response?.data?.error || e.message)
+  }
+}
+
 export async function authenticate() {
   const response = await api.loggedCall().get("/authenticate")
 
