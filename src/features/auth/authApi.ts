@@ -82,3 +82,12 @@ export async function deleteAccount(password: string) {
     throw new Error(e?.response?.data?.error || e.message)
   }
 }
+
+export async function checkUpdatePwdToken(token: string) {
+  try {
+    const response = await api.get("/check-reset-pwd-token?token=" + token)
+    return response.data
+  } catch (e: any) {
+    throw new Error(e?.response?.data?.error || e.message)
+  }
+}

@@ -23,6 +23,12 @@ const resetPwdSchema = object({
 })
 
 export function ResetPassword() {
+  const [params] = useSearchParams()
+  const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState(false)
+
   const handleSubmit = async (values: ResetPasswordFormValues) => {
     setIsLoading(true)
     setError(null)
@@ -37,12 +43,6 @@ export function ResetPassword() {
       setIsLoading(false)
     }
   }
-
-  const [params] = useSearchParams()
-  const navigate = useNavigate()
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [success, setSuccess] = useState(false)
 
   const redirectToLogin = () => {
     setTimeout(() => {

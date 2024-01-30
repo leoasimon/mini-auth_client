@@ -10,6 +10,7 @@ import { VerifyEmail } from "./features/auth/VerifyEmail"
 import { SignupSuccess } from "./features/auth/SignupSuccess"
 import { ForgotPassword } from "./features/auth/ForgotPassword"
 import { ResetPassword } from "./features/auth/ResetPassword"
+import { CheckToken } from "./features/auth/CheckToken"
 
 export function AppRoutes() {
   return (
@@ -38,6 +39,7 @@ export function AppRoutes() {
       <Route path="/signup-success" element={<SignupSuccess />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/check-token" element={<CheckToken />} />
     </Routes>
   )
 }
